@@ -1,0 +1,32 @@
+#spring:
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.56.10:8848
+#    alicloud:
+#      access-key: LTAI4Fnx87yV1CaSmPmniDp1
+#      secret-key: 5uqsJ5wio6ctJH4vu7tkx5xRktPyBV
+#      oss:
+#        endpoint: oss-cn-beijing.aliyuncs.com
+#        bucket: study-chengcheng
+#  application:
+#    name: gulimall-third-paryt
+#
+#  cloud:
+#    alicloud:
+#      sms:
+#        host: https://smsmsgs.market.alicloudapi.com
+#        path: /sms/
+#        sign: 1
+#        skin: 1
+#        appkey: 203841681
+#        appsecret: u5LARn2E6q6CkEh6MrsSGZhhjKFkNwEA
+#        appcode: 22bdb919b2be4c6d897a3b3509ed4c68
+#
+#server:
+#  port: 30000
+#
+#logging:
+#  level:
+#    com.atguigu.gulimall: debug
+#

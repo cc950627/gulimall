@@ -1,0 +1,65 @@
+#spring:
+#  datasource:
+#    username: root
+#    password: 123456
+#    url: jdbc:mysql://192.168.56.10:3306/gulimall_pms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.56.10:8848
+#    sentinel:
+#      transport:
+#        dashboard: 192.168.56.10:8858
+#        port: 8719
+#  zipkin:
+#    base-url: http://192.168.56.10:9411/
+#    discovery-client-enabled: false
+#    sender:
+#      type: web
+#  sleuth:
+#    sampler:
+#      probability: 1
+#  application:
+#    name: gulimall-product
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#  thymeleaf:
+#    cache: false
+#    prefix: classpath:/templates/
+#    suffix: .html
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: info,health,beans,env,mappings
+#
+#mybatis-plus:
+#  mapper-locations: classpath*:/mapper/**/*.xml
+#  global-config:
+#    db-config:
+#      id-type: auto
+#      logic-delete-value: 1
+#      logic-not-delete-value: 0
+#server:
+#  port: 10000
+#
+#logging:
+#  level:
+#    com.atguigu.gulimall: debug
+#
+#redisson:
+#  single-server-config:
+#    address: 192.168.56.10:6379
+#gulimall:
+#  thread:
+#    pool:
+#      core-pool-size: 10
+#      maximum-pool-size: 100
+#      keep-alive-time: 10
+#      capacity: 10000
+#
+#feign:
+#  sentinel:
+#    enabled: true

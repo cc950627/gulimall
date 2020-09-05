@@ -1,0 +1,14 @@
+#spring:
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.56.10:8848
+#  application:
+#    name: gulimall-auth-server
+#
+#redisson:
+#  single-server-config:
+#    address: 192.168.56.10:6379
+#
+#server:
+#  port: 20000

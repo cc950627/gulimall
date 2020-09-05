@@ -1,0 +1,59 @@
+#spring:
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.56.10:8848
+#    sentinel:
+#      transport:
+#        dashboard: 192.168.56.10:8858
+#        port: 8719
+#  zipkin:
+#    base-url: http://192.168.56.10:9411/
+#    discovery-client-enabled: false
+#    sender:
+#      type: web
+#  sleuth:
+#    sampler:
+#      probability: 1
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: info,health,beans,env,mappings
+#  application:
+#    name: gulimall-seckill
+#  thymeleaf:
+#    cache: false
+#    prefix: classpath:/templates/
+#    suffix: .html
+#  task:
+#    execution:
+#      pool:
+#        core-size: 20
+#        max-size: 50
+#  rabbitmq:
+#    host: 192.168.56.10
+#    port: 5672
+#    virtual-host: /
+#    publisher-confirm-type: correlated
+#    publisher-returns: true
+#    template:
+#      mandatory: true
+#    listener:
+#      direct:
+#        acknowledge-mode: manual
+#
+#server:
+#  port: 25000
+#
+#logging:
+#  level:
+#    com.atguigu.gulimall: debug
+#
+#redisson:
+#  single-server-config:
+#    address: 192.168.56.10:6379
+#
+#feign:
+#  sentinel:
+#    enabled: true

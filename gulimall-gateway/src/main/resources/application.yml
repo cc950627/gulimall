@@ -1,0 +1,105 @@
+#spring:
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.56.10:8848
+#    sentinel:
+#      transport:
+#        dashboard: 192.168.56.10:8858
+#        port: 8719
+#  application:
+#    name: gulimall-gateway
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: info,health,beans,env,mappings
+#server:
+#  port: 88
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: gulimall-coupon-route
+#          uri: lb://gulimall-coupon
+#          predicates:
+#            - Path=/coupon/**
+#
+#        - id: gulimall-member-route
+#          uri: lb://gulimall-member
+#          predicates:
+#            - Path=/member/**
+#
+#        - id: gulimall-order-route
+#          uri: lb://gulimall-order
+#          predicates:
+#            - Path=/order/**
+#
+#        - id: gulimall-product-route
+#          uri: lb://gulimall-product
+#          predicates:
+#            - Path=/product/**
+#
+#        - id: gulimall-search-route
+#          uri: lb://gulimall-search
+#          predicates:
+#            - Path=/search/**
+#
+#        - id: gulimall-third-paryt-route
+#          uri: lb://gulimall-third-paryt
+#          predicates:
+#            - Path=/oss/**
+#
+#        - id: gulimall-ware-route
+#          uri: lb://gulimall-ware
+#          predicates:
+#            - Path=/ware/**
+#
+#        - id: gulimall-producrt-web-route
+#          uri: lb://gulimall-product
+#          predicates:
+#            - Path=/**
+#            - Host=gulimall.com,item.gulimall.com
+#
+#        - id: gulimall-search-web-route
+#          uri: lb://gulimall-search
+#          predicates:
+#            - Path=/**
+#            - Host=search.gulimall.com
+#
+#         - id: gulimall-auth-route
+#          uri: lb://gulimall-auth-server
+#          predicates:
+#            - Path=/**
+#            - Host=auth.gulimall.com
+#
+#        - id: gulimall-cart-route
+#          uri: lb://gulimall-cart
+#          predicates:
+#            - Path=/**
+#            - Host=cart.gulimall.com
+#
+#        - id: gulimall-order-web-route
+#          uri: lb://gulimall-order
+#          predicates:
+#            - Path=/**
+#            - Host=order.gulimall.com
+#
+#        - id: gulimall-member-web-route
+#          uri: lb://gulimall-member
+#          predicates:
+#            - Path=/**
+#            - Host=member.gulimall.com
+#
+#        - id: gulimall-seckill-web-route
+#          uri: lb://gulimall-seckill
+#          predicates:
+#            - Path=/**
+#            - Host=seckill.gulimall.com
+#
+#        - id: renren-fast-route
+#          uri: lb://renren-fast
+#          predicates:
+#            - Path=/**
+#          filters:
+#            - RewritePath=/(?<segment>/?.*), /renren-fast/$\{segment}
+
