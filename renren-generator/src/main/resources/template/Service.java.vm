@@ -10,11 +10,9 @@ import java.util.Map;
  * ${comments}
  *
  * @author ${author}
- * @email ${email}
  * @date ${datetime}
  */
-public interface ${className}Service extends IService<${className}Entity> {
+public interface ${className}Service extends IService<${className}PO> {
 
-    PageUtils queryPage(Map<String, Object> params);
 }
 

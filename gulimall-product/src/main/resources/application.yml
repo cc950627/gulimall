@@ -43,7 +43,7 @@
 #      logic-delete-value: 1
 #      logic-not-delete-value: 0
 #server:
-#  port: 10000
+#  port: 10010
 #
 #logging:
 #  level:
@@ -52,6 +52,7 @@
 #redisson:
 #  single-server-config:
 #    address: 192.168.56.10:6379
+#
 #gulimall:
 #  thread:
 #    pool:

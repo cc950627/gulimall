@@ -1,7 +1,7 @@
 package com.atguigu.gulimall.cart.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.nacos.common.util.UuidUtils;
+import com.alibaba.nacos.common.utils.UuidUtils;
 import com.atguigu.common.to.UserInfoTO;
 import com.atguigu.common.utils.Constant;
 import com.atguigu.gulimall.cart.constant.CartConstant;

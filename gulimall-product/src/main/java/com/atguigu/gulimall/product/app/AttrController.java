@@ -6,6 +6,7 @@ import com.atguigu.gulimall.product.entity.AttrEntity;
 import com.atguigu.gulimall.product.entity.ProductAttrValueEntity;
 import com.atguigu.gulimall.product.service.AttrService;
 import com.atguigu.gulimall.product.service.CategoryService;
+import com.pig4cloud.plugin.idempotent.annotation.Idempotent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,7 @@ public class AttrController {
     /**
      * 列表
      */
+    @Idempotent(key = "#params", expireTime = 3)
     @RequestMapping("/list")
     //@RequiresPermissions("product:attr:list")
     public R list(@RequestParam Map<String, Object> params){
