@@ -109,11 +109,10 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
