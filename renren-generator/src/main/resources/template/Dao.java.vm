@@ -8,9 +8,10 @@ import org.apache.ibatis.annotations.Mapper;
  * ${comments}
  *
  * @author ${author}
+ * @email ${email}
  * @date ${datetime}
  */
 @Mapper
-public interface ${className}Dao extends BaseMapper<${className}PO> {
+public interface ${className}Dao extends BaseMapper<${className}Entity> {
 
 }
