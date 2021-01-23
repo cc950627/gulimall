@@ -30,7 +30,7 @@ pipeline {
     }
     post {
       always {
-        emailext subject: '构建通知xxx', body: '构建完成'
+        emailext subject: '构建通知：${PROJECT_NAME} - Build # ${BUILD_NUMBER} - ${BUILD_STATUS}！', body: '构建完成'
       }
     }
 }
