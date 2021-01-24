@@ -7,16 +7,6 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2011ac9f-ebe5-4ced-b82f-5ac4b4c9b195', url: 'git@192.168.56.11:gulimall_group/gulimall.git']]])
             }
         }
-        stage(' 代码审查 ') {
-            steps {
-                script {
-                    scannerHome = tool 'sonar-scanner'
-                }
-                withSonarQubeEnv('sonar') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
-            }
-        }
         stage(' 代码清理 ') {
             steps {
                 sh 'mvn clean'
