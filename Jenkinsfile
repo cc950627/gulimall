@@ -37,7 +37,7 @@ pipeline {
                 sh 'mvn package'
             }
         }
-        stage(' 代码打包 ') {
+        stage(' 代码部署 ') {
             steps {
                 sshPublisher(publishers: [sshPublisherDesc(configName: '192.168.56.10', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /mydata/jenkins/web/gateway
                 ./gateway.sh''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/mydata/jenkins/web/gateway', remoteDirectorySDF: false, removePrefix: 'gulimall-gateway/target/', sourceFiles: 'gulimall-gateway/target/*.jar'), sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /mydata/jenkins/web/product
