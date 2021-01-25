@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage(' 代码拉取 ') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2011ac9f-ebe5-4ced-b82f-5ac4b4c9b195', url: 'git@192.168.56.11:gulimall_group/gulimall.git']]])
+                //checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2011ac9f-ebe5-4ced-b82f-5ac4b4c9b195', url: 'git@192.168.56.11:gulimall_group/gulimall.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '34ba31b6-2cb7-4ad4-b222-fefb39b5eaec', url: 'git@github.com:cc950627/gulimall.git']]])
             }
         }
         stage(' 代码审查 ') {
