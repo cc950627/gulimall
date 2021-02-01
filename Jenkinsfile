@@ -15,7 +15,8 @@ pipeline {
             }
         }
         stage(' 代码审查 ') {
-            for (projectInfo in $projectInfos) {
+        script {
+            for (projectInfo in projectInfos) {
                 //def projectName = "${projectInfo}".split("@")[0];
                 //def projectProt = "${projectInfo}".split("@")[1];
                 steps {
@@ -35,6 +36,6 @@ pipeline {
                 }
             }
         }
-
+        }
     }
 }
