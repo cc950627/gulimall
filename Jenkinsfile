@@ -15,27 +15,27 @@ pipeline {
             }
         }
         stage(' 代码审查 ') {
-        script {
-            for (projectInfo in projectInfos) {
-                //def projectName = "${projectInfo}".split("@")[0];
-                //def projectProt = "${projectInfo}".split("@")[1];
-                steps {
-                    echo "${projectInfos}---------------------------------"
-                    //echo "${projectInfo}---------------------------------"
-                    //echo "${projectName}---------------------------------"
-                   //echo "${projectProt}---------------------------------"
-                    script {
-                        scannerHome = tool 'sonar-scanner'
-                    }
-                    withSonarQubeEnv('sonar') {
-                        sh """
-                            cd ${projectName}
-                            ${scannerHome}/bin/sonar-scanner
-                        """
+            steps {
+                script {
+                    for (projectInfo in projectInfos) {
+                        def projectName = "${projectInfo}".split("@")[0];
+                        def projectProt = "${projectInfo}".split("@")[1];
+                        //echo "${projectInfos}---------------------------------"
+                        //echo "${projectInfo}---------------------------------"
+                        //echo "${projectName}---------------------------------"
+                       //echo "${projectProt}---------------------------------"
+                        script {
+                            scannerHome = tool 'sonar-scanner'
+                        }
+                        withSonarQubeEnv('sonar') {
+                            sh """
+                                cd ${projectName}
+                                ${scannerHome}/bin/sonar-scanner
+                            """
+                        }
                     }
                 }
             }
-        }
         }
     }
 }
