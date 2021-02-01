@@ -20,10 +20,10 @@ pipeline {
                     for (projectInfo in projectInfos) {
                         def projectName = "${projectInfo}".split("@")[0];
                         def projectProt = "${projectInfo}".split("@")[1];
-                        //echo "${projectInfos}---------------------------------"
-                        //echo "${projectInfo}---------------------------------"
-                        //echo "${projectName}---------------------------------"
-                       //echo "${projectProt}---------------------------------"
+                        echo "${projectInfos}---------------------------------"
+                        echo "${projectInfo}---------------------------------"
+                        echo "${projectName}---------------------------------"
+                        echo "${projectProt}---------------------------------"
                         script {
                             scannerHome = tool 'sonar-scanner'
                         }
