@@ -3,10 +3,12 @@ def git_voucher = "34ba31b6-2cb7-4ad4-b222-fefb39b5eaec"
 // git仓库地址
 def git_url = "git@github.com:cc950627/gulimall.git"
 
+def projectInfos = "${project_infos}".split(",");
+
 pipeline {
     agent any;
     // 获取当前选择的项目名称
-    def projectInfos = "${project_infos}".split(",");
+    //def projectInfos = "${project_infos}".split(",");
 
     stages {
         stage(' 代码拉取 ') {
