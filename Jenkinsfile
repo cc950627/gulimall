@@ -17,6 +17,7 @@ pipeline {
             }
         }
         stage(' 代码审查 ') {
+            echo "---------------------------------${projectInfos}"
             for (int i = 0; i < projectInfos.length; i++) {
                 def projectInfo = projectInfos[i];
                 def projectName = "${projectInfo}".split("@")[0];
