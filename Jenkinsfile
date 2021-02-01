@@ -3,12 +3,10 @@ def git_voucher = "34ba31b6-2cb7-4ad4-b222-fefb39b5eaec"
 // git仓库地址
 def git_url = "git@github.com:cc950627/gulimall.git"
 // 获取当前选择的项目名称
-
+def projectInfos = "${project_infos}".split(",");
 
 pipeline {
     agent any;
-
-    def projectInfos = "${project_infos}".split(",");
 
     stages {
         stage(' 代码拉取 ') {
@@ -17,10 +15,10 @@ pipeline {
             }
         }
         stage(' 代码审查 ') {
-            //for (int i = 0; i < projectInfos.length; i++) {
-            //    def projectInfo = projectInfos[i];
-            //    def projectName = "${projectInfo}".split("@")[0];
-            //    def projectProt = "${projectInfo}".split("@")[1];
+            for (int i = 0; i < projectInfos.length; i++) {
+                def projectInfo = projectInfos[i];
+                def projectName = "${projectInfo}".split("@")[0];
+                def projectProt = "${projectInfo}".split("@")[1];
                 steps {
                 echo "${projectInfos}---------------------------------"
                     script {
@@ -33,7 +31,7 @@ pipeline {
                         """
                     }
                 }
-            //}
+            }
         }
 
     }
