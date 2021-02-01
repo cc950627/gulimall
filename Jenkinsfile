@@ -19,6 +19,7 @@ pipeline {
                 //def projectName = "${projectInfo}".split("@")[0];
                 //def projectProt = "${projectInfo}".split("@")[1];
                 steps {
+                    echo "${projectInfos}---------------------------------"
                     echo "${projectInfo}---------------------------------"
                     //echo "${projectName}---------------------------------"
                    //echo "${projectProt}---------------------------------"
