@@ -16,11 +16,11 @@ pipeline {
         }
         stage(' 代码审查 ') {
             for (projectInfo in projectInfos) {
-                def projectInfo = projectInfos[i];
                 def projectName = "${projectInfo}".split("@")[0];
                 def projectProt = "${projectInfo}".split("@")[1];
                 steps {
-                echo "${projectInfo}---------------------------------"
+                echo "${projectName}---------------------------------"
+                echo "${projectProt}---------------------------------"
                     script {
                         scannerHome = tool 'sonar-scanner'
                     }
