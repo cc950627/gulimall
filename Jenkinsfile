@@ -24,30 +24,28 @@ pipeline {
                         def projectProt = "${projectInfo}".split("@")[1];
                         scannerHome = tool 'sonar-scanner'
                         withSonarQubeEnv('sonar') {
-                            sh """
-                                cd ${projectName}
-                                ${scannerHome}/bin/sonar-scanner
-                            """
+                            sh """cd ${projectName}
+                                ${scannerHome}/bin/sonar-scanner"""
                         }
                     }
                 }
             }
         }
-        //stage(' 代码安装 ') {
-        //    steps {
-        //       sh "mvn clean install"
-        //   }
-        //}
-        //stage(' 代码打包 ') {
-        //    steps {
-        //        script {
-        //            for (projectInfo in projectInfos) {
-        //                def projectName = "${projectInfo}".split("@")[0];
-        //                sh "mvn -f ${projectName} clean package"
-        //            }
-        //        }
-        //    }
-        //}
+        stage(' 代码安装 ') {
+            steps {
+               sh "mvn clean install"
+           }
+        }
+        stage(' 代码打包 ') {
+            steps {
+                script {
+                    for (projectInfo in projectInfos) {
+                        def projectName = "${projectInfo}".split("@")[0];
+                        sh "mvn -f ${projectName} clean package"
+                    }
+                }
+            }
+        }
         stage(' 代码部署 ') {
             steps {
                 script {
