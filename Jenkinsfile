@@ -24,20 +24,18 @@ pipeline {
                         echo "-----------------------------------------------${projectProt}"
                         scannerHome = tool 'sonar-scanner'
                         withSonarQubeEnv('sonar') {
-                            sh """
-                                cd ${projectName}
-                                ${scannerHome}/bin/sonar-scanner
-                            """
+                            sh "cd ${projectName}
+                                ${scannerHome}/bin/sonar-scanner"
                         }
                     }
                 }
             }
         }
-        //stage(' 代码安装 ') {
-        //    steps {
-        //       sh 'mvn clean install'
-        //   }
-        //}
+        stage(' 代码安装 ') {
+            steps {
+               sh "mvn clean install"
+           }
+        }
         stage(' 代码打包 ') {
             steps {
                 script {
