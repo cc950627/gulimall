@@ -20,6 +20,8 @@ pipeline {
                     for (projectInfo in projectInfos) {
                         def projectName = "${projectInfo}".split("@")[0];
                         def projectProt = "${projectInfo}".split("@")[1];
+                        echo "-----------------------------------------------${projectName}"
+                        echo "-----------------------------------------------${projectProt}"
                         scannerHome = tool 'sonar-scanner'
                         withSonarQubeEnv('sonar') {
                             sh """
@@ -31,16 +33,17 @@ pipeline {
                 }
             }
         }
-        stage(' 代码安装 ') {
-            steps {
-                sh 'mvn clean install'
-            }
-        }
+        //stage(' 代码安装 ') {
+        //    steps {
+        //       sh 'mvn clean install'
+        //   }
+        //}
         stage(' 代码打包 ') {
             steps {
                 script {
                     for (projectInfo in projectInfos) {
                         def projectName = "${projectInfo}".split("@")[0];
+                        echo "-----------------------------------------------${projectName}"
                         sh 'mvn -f ${projectName} clean package'
                     }
                 }
