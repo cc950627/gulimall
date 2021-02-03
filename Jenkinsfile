@@ -24,10 +24,10 @@ pipeline {
                         echo "-----------------------------------------------${projectProt}"
                         scannerHome = tool 'sonar-scanner'
                         withSonarQubeEnv('sonar') {
-                            sh "
+                            sh """
                                 cd ${projectName}
                                 ${scannerHome}/bin/sonar-scanner
-                            "
+                            """
                         }
                     }
                 }
