@@ -41,7 +41,7 @@ pipeline {
                 script {
                     for (projectInfo in projectInfos) {
                         def projectName = "${projectInfo}".split("@")[0];
-                        sh 'mvn -f ${projectName} clean package'
+                        sh 'mvn -f gulimall-gateway clean package'
                     }
                 }
             }
