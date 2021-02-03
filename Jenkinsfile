@@ -54,6 +54,7 @@ pipeline {
                      for (projectInfo in projectInfos) {
                         def projectName = "${projectInfo}".split("@")[0];
                         for (host in "${hosts}".split(",")) {
+                            echo "----------------------------------------------------------------${host}"
                             sshPublisher(publishers: [sshPublisherDesc(configName: "${host}", transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: """cd /mydata/jenkins/web/${projectName}
                             rm -rf ${projectName}-0.0.1-SNAPSHOT.jar
                             ./${projectName}.sh""", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "/mydata/jenkins/web/${projectName}", remoteDirectorySDF: false, removePrefix: "${projectName}/target/", sourceFiles: "${projectName}/target/*.jar")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
