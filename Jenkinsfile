@@ -5,9 +5,9 @@ def git_url = "git@github.com:cc950627/gulimall.git"
 // 获取当前选择的项目信息
 def projectNames = "${project_names}".split(",");
 // 服务发布的机器
-def branch_hosts = "${branch}".split("@");
+def branch_hosts = "${branch}".split(":");
 def branch = branch_hosts[0];
-def hosts = "${branch_hosts}"[1].split(",");
+def hosts = "${branch_hosts}"[1].split("/");
 
 pipeline {
     agent any;
