@@ -5,7 +5,9 @@ def git_url = "git@github.com:cc950627/gulimall.git"
 // 获取当前选择的项目信息
 def projectNames = "${project_names}".split(",");
 // 服务发布的机器
-def hosts = "192.168.56.10";
+def branch_hosts = "${branch}".split("@");
+def branch = branch_hosts[0];
+def hosts = "${branch_hosts}"[1].split(",");
 
 pipeline {
     agent any;
@@ -47,7 +49,7 @@ pipeline {
             steps {
                 script {
                      for (projectName in projectNames) {
-                        for (host in "${hosts}".split(",")) {
+                        for (host in hosts) {
                             sshPublisher(publishers: [sshPublisherDesc(configName: "${host}", transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: """cd /mydata/jenkins/web/${projectName}
                             ./${projectName}.sh""", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "/mydata/jenkins/web/${projectName}", remoteDirectorySDF: false, removePrefix: "${projectName}/target/", sourceFiles: "${projectName}/target/*.jar")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                         }
