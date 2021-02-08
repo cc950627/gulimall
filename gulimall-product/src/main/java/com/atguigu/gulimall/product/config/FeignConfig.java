@@ -1,4 +1,4 @@
-package com.atguigu.gulimall.order.config;
+package com.atguigu.gulimall.product.config;
 
 import feign.RequestInterceptor;
 import io.seata.core.context.RootContext;

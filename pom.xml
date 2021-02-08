@@ -37,18 +37,19 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
-        <mybatis-plus-boot-starter.version>3.3.1.tmp</mybatis-plus-boot-starter.version>
+        <mybatis-plus.version>3.3.1.tmp</mybatis-plus.version>
         <alicloud-oss.version>2.2.0.RELEASE</alicloud-oss.version>
         <commons-lang.version>2.6</commons-lang.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <cvalidation-api.version>2.0.1.Final</cvalidation-api.version>
         <hutool-all.version>5.4.3</hutool-all.version>
-        <redisson-spring-boot-starter.version>1.0.4</redisson-spring-boot-starter.version>
-        <idempotent-spring-boot-starter.version>0.0.2</idempotent-spring-boot-starter.version>
+        <redisson.version>1.0.4</redisson.version>
+        <idempotent.version>0.0.2</idempotent.version>
         <alipay-sdk-java.version>4.10.90.ALL</alipay-sdk-java.version>
         <elasticsearch.version>7.4.2</elasticsearch.version>
         <xxl-job-core.version>2.2.0</xxl-job-core.version>
+        <seata.version>1.4.0</seata.version>
         <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
     </properties>
 
@@ -74,9 +75,14 @@
                 <version>${alicloud-oss.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus-boot-starter.version}</version>
+                <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -107,12 +113,12 @@
             <dependency>
                 <groupId>com.zengtengpeng</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>${redisson-spring-boot-starter.version}</version>
+                <version>${redisson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.pig4cloud.plugin</groupId>
                 <artifactId>idempotent-spring-boot-starter</artifactId>
-                <version>${idempotent-spring-boot-starter.version}</version>
+                <version>${idempotent.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alipay.sdk</groupId>

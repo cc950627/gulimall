@@ -73,7 +73,8 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         return new PageUtils(page);
     }
 
-    @Transactional
+    @GlobalTransactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean addStock(List<PurchaseDetailVO> purchaseDetailVOS) {
         Set<Long> purchaseDetailIds = purchaseDetailVOS.stream().map(PurchaseDetailVO::getItemId).collect(Collectors.toSet());

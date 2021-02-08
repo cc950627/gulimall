@@ -1,5 +1,7 @@
 package com.atguigu.gulimall.product;
 
+import com.alibaba.cloud.seata.feign.SeataFeignClientAutoConfiguration;
+import io.seata.config.springcloud.EnableSeataSpringConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -13,11 +15,12 @@ import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
 
+@EnableSeataSpringConfig
 @EnableRedissonHttpSession
 @EnableFeignClients(basePackages = "com.atguigu.gulimall.product.feign")
 @EnableDiscoveryClient
 @MapperScan("com.atguigu.gulimall.product.dao")
-@SpringBootApplication
+@SpringBootApplication(exclude = {SeataFeignClientAutoConfiguration.class})
 public class GulimallProductApplication {
 
     public static void main(String[] args) {

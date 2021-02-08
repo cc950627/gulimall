@@ -1,0 +1,37 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.56.10:8848
+        username: nacos
+        password: nacos
+        namespace: 12a22b95-014c-4d8f-a19a-2a4cc74d80b3
+        name: gulimall-product
+        file-extension: yml
+        group: gulimall
+        refresh-enabled: true
+#        extension-configs:
+#          - data-id: datasource.yml
+#            group: ${spring.cloud.nacos.config.group}
+#            refresh: ${spring.cloud.nacos.config.refresh-enabled}
+#          - data-id: mybatis.yml
+#            group: ${spring.cloud.nacos.config.group}
+#            refresh: ${spring.cloud.nacos.config.refresh-enabled}
+#          - data-id: thymeleaf.yml
+#            group: ${spring.cloud.nacos.config.group}
+#            refresh: ${spring.cloud.nacos.config.refresh-enabled}
+#          - data-id: redis.yml
+#            group: ${spring.cloud.nacos.config.group}
+#            refresh: ${spring.cloud.nacos.config.refresh-enabled}
+#          - data-id: other.yml
+#            group: ${spring.cloud.nacos.config.group}
+#            refresh: ${spring.cloud.nacos.config.refresh-enabled}
+#          - data-id: threadPool.yml
+#            group: ${spring.cloud.nacos.config.group}
+#            refresh: ${spring.cloud.nacos.config.refresh-enabled}
+#          - data-id: sentinel.yml
+#            group: ${spring.cloud.nacos.config.group}
+#            refresh: ${spring.cloud.nacos.config.refresh-enabled}
+#          - data-id: zipkin.yml
+#            group: ${spring.cloud.nacos.config.group}
+#            refresh: ${spring.cloud.nacos.config.refresh-enabled}

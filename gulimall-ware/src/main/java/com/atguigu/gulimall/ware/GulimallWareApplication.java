@@ -1,6 +1,6 @@
 package com.atguigu.gulimall.ware;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.alibaba.cloud.seata.feign.SeataFeignClientAutoConfiguration;
 import io.seata.config.springcloud.EnableSeataSpringConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(basePackages = "com.atguigu.gulimall.ware.feign")
 @EnableDiscoveryClient
 @MapperScan("com.atguigu.gulimall.ware.dao")
-@SpringBootApplication
+@SpringBootApplication(exclude = {SeataFeignClientAutoConfiguration.class})
 public class GulimallWareApplication {
 
     public static void main(String[] args) {

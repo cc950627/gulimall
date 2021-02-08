@@ -1,14 +1,33 @@
-#spring:
-#  cloud:
-#    nacos:
-#      discovery:
-#        server-addr: 192.168.56.10:8848
-#  application:
-#    name: gulimall-cart
+#server:
+#  port: 12000
 #
 #redisson:
 #  single-server-config:
 #    address: 192.168.56.10:6379
 #
-#server:
-#  port: 12000
+#gulimall:
+#  thread:
+#    pool:
+#      core-pool-size: 10
+#      maximum-pool-size: 100
+#      keep-alive-time: 10
+#      capacity: 10000
+#
+#spring:
+#  application:
+#    name: gulimall-cart
+#
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.56.10:8848
+#        username: nacos
+#        password: nacos
+#        namespace: 12a22b95-014c-4d8f-a19a-2a4cc74d80b3
+#        group: gulimall
+#        service: ${spring.application.name}
+#
+#  thymeleaf:
+#    cache: false
+#    prefix: classpath:/templates/
+#    suffix: .html

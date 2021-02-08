@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.56.10:8848
+        username: nacos
+        password: nacos
+        namespace: 12a22b95-014c-4d8f-a19a-2a4cc74d80b3
+        name: gulimall-third-paryt
+        file-extension: yml
+        group: gulimall
+        refresh-enabled: true

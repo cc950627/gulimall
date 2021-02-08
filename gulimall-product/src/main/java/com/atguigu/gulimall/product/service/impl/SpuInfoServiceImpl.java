@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -74,6 +75,75 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Autowired
     private BrandService brandService;
 
+    @GlobalTransactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean prdouctUp(Long spuId) {
+
+        SpuInfoEntity spuInfo = this.getById(spuId);
+        Optional.ofNullable(spuInfo).orElseThrow(() -> new BizException(BizExceptionEnum.P_REQUEST_PARAM_ERROR, String.format("spuId：%sb不存在", spuId)));
+
+        QueryWrapper<ProductAttrValueEntity> productAttrValueWrapper = new QueryWrapper<>();
+        productAttrValueWrapper.eq("spu_id", spuId);
+        List<ProductAttrValueEntity> productAttrValues = productAttrValueService.list(productAttrValueWrapper);
+
+        Set<Long> attrIds = productAttrValues.stream().map(ProductAttrValueEntity::getAttrId).collect(Collectors.toSet());
+        QueryWrapper<AttrEntity> attrWrapper = new QueryWrapper<>();
+        attrWrapper.in("attr_id", attrIds);
+        attrWrapper.eq("search_type", 1);
+        List<AttrEntity> attrs = attrService.list(attrWrapper);
+
+        List<SkuEsModel.Attrs> esAttrs = productAttrValues.stream().filter(e -> attrs.stream().anyMatch(o ->
+                Objects.equals(o.getAttrId(), e.getAttrId()))).map(e -> {
+            SkuEsModel.Attrs esAttr = new SkuEsModel.Attrs();
+            BeanUtils.copyProperties(e, esAttr);
+            return esAttr;
+        }).collect(Collectors.toList());
+
+        QueryWrapper<SkuInfoEntity> SkuInfoWrapper = new QueryWrapper<>();
+        SkuInfoWrapper.eq("spu_id", spuId);
+        List<SkuInfoEntity> skuInfos = skuInfoService.list(SkuInfoWrapper);
+
+        Set<Long> skuIdIds = skuInfos.stream().map(SkuInfoEntity::getSkuId).collect(Collectors.toSet());
+        R r1 = wareFeignService.getSkuStock(skuIdIds);
+        if (!Objects.equals(0, r1.getCode())) {
+            throw new BizException(BizExceptionEnum.P_REQ_REMOTESERVICE_FAIL,
+                    String.format("server-name：gulimall-ware，url：/ware/waresku/getSkuStock，param：%s", JSON.toJSONString(skuIdIds)), r1);
+        }
+        JSONObject data = JSON.parseObject(JSON.toJSONString(r1.get("data")));
+
+        Set<Long> brandIds = skuInfos.stream().map(SkuInfoEntity::getBrandId).collect(Collectors.toSet());
+        Set<Long> catalogIds = skuInfos.stream().map(SkuInfoEntity::getCatalogId).collect(Collectors.toSet());
+        List<BrandEntity> brands = brandService.listByIds(brandIds);
+        List<CategoryEntity> categorys = categoryService.listByIds(catalogIds);
+
+        List<SkuEsModel> skuEsModels = skuInfos.stream().map(e -> {
+            SkuEsModel skuEsModel = new SkuEsModel();
+            BeanUtils.copyProperties(e, skuEsModel);
+            skuEsModel.setSkuPrice(e.getPrice());
+            skuEsModel.setSkuImg(e.getSkuDefaultImg());
+            skuEsModel.setHotScore(0L);
+            skuEsModel.setHasStock(data.getIntValue(String.valueOf(e.getSkuId())) > 0);
+            brands.stream().filter(o -> Objects.equals(o.getBrandId(), e.getBrandId())).findAny().ifPresent(o -> {
+                skuEsModel.setBrandName(o.getName());
+                skuEsModel.setBrandImg(o.getLogo());
+            });
+            categorys.stream().filter(o -> Objects.equals(o.getCatId(), e.getCatalogId())).findAny().ifPresent(o -> skuEsModel.setCatalogName(o.getName()));
+            skuEsModel.setAttrs(esAttrs);
+            return skuEsModel;
+        }).collect(Collectors.toList());
+
+        R r2 = searchFeignService.productSave(skuEsModels);
+        if (!Objects.equals(0, r2.getCode())) {
+            throw new BizException(BizExceptionEnum.P_REQ_REMOTESERVICE_FAIL,
+                    String.format("server-name：gulimall-search，url：/search/es/product/Up，param：%s", JSON.toJSONString(skuEsModels)), r2);
+        }
+
+        spuInfo.setPublishStatus(SpuStatusEnum.SPU_UP.getStatus());
+        spuInfo.setUpdateTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+        return this.updateById(spuInfo);
+    }
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<SpuInfoEntity> page = this.page(
@@ -84,7 +154,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         return new PageUtils(page);
     }
 
-    @Transactional
+    @GlobalTransactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean saveSpuInfo(SpuInfoEntity spuInfo) {
          spuInfo.setCreateTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
@@ -193,74 +264,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             brands.stream().filter(o -> Objects.equals(o.getBrandId(), e.getBrandId())).findAny().ifPresent(o -> e.setBrandName(o.getName()));
         });
         return new PageUtils(page);
-    }
-
-    @Override
-    @Transactional
-    public boolean prdouctUp(Long spuId) {
-
-        SpuInfoEntity spuInfo = this.getById(spuId);
-        Optional.ofNullable(spuInfo).orElseThrow(() -> new BizException(BizExceptionEnum.P_REQUEST_PARAM_ERROR, String.format("spuId：%sb不存在", spuId)));
-
-        QueryWrapper<ProductAttrValueEntity> productAttrValueWrapper = new QueryWrapper<>();
-        productAttrValueWrapper.eq("spu_id", spuId);
-        List<ProductAttrValueEntity> productAttrValues = productAttrValueService.list(productAttrValueWrapper);
-
-        Set<Long> attrIds = productAttrValues.stream().map(ProductAttrValueEntity::getAttrId).collect(Collectors.toSet());
-        QueryWrapper<AttrEntity> attrWrapper = new QueryWrapper<>();
-        attrWrapper.in("attr_id", attrIds);
-        attrWrapper.eq("search_type", 1);
-        List<AttrEntity> attrs = attrService.list(attrWrapper);
-
-        List<SkuEsModel.Attrs> esAttrs = productAttrValues.stream().filter(e -> attrs.stream().anyMatch(o ->
-                Objects.equals(o.getAttrId(), e.getAttrId()))).map(e -> {
-            SkuEsModel.Attrs esAttr = new SkuEsModel.Attrs();
-            BeanUtils.copyProperties(e, esAttr);
-            return esAttr;
-        }).collect(Collectors.toList());
-
-        QueryWrapper<SkuInfoEntity> SkuInfoWrapper = new QueryWrapper<>();
-        SkuInfoWrapper.eq("spu_id", spuId);
-        List<SkuInfoEntity> skuInfos = skuInfoService.list(SkuInfoWrapper);
-
-        Set<Long> skuIdIds = skuInfos.stream().map(SkuInfoEntity::getSkuId).collect(Collectors.toSet());
-        R r1 = wareFeignService.getSkuStock(skuIdIds);
-        if (!Objects.equals(0, r1.getCode())) {
-            throw new BizException(BizExceptionEnum.P_REQ_REMOTESERVICE_FAIL,
-                    String.format("server-name：gulimall-ware，url：/ware/waresku/getSkuStock，param：%s", JSON.toJSONString(skuIdIds)), r1);
-        }
-        JSONObject data = JSON.parseObject(JSON.toJSONString(r1.get("data")));
-
-        Set<Long> brandIds = skuInfos.stream().map(SkuInfoEntity::getBrandId).collect(Collectors.toSet());
-        Set<Long> catalogIds = skuInfos.stream().map(SkuInfoEntity::getCatalogId).collect(Collectors.toSet());
-        List<BrandEntity> brands = brandService.listByIds(brandIds);
-        List<CategoryEntity> categorys = categoryService.listByIds(catalogIds);
-
-        List<SkuEsModel> skuEsModels = skuInfos.stream().map(e -> {
-            SkuEsModel skuEsModel = new SkuEsModel();
-            BeanUtils.copyProperties(e, skuEsModel);
-            skuEsModel.setSkuPrice(e.getPrice());
-            skuEsModel.setSkuImg(e.getSkuDefaultImg());
-            skuEsModel.setHotScore(0L);
-            skuEsModel.setHasStock(data.getIntValue(String.valueOf(e.getSkuId())) > 0);
-            brands.stream().filter(o -> Objects.equals(o.getBrandId(), e.getBrandId())).findAny().ifPresent(o -> {
-                skuEsModel.setBrandName(o.getName());
-                skuEsModel.setBrandImg(o.getLogo());
-            });
-            categorys.stream().filter(o -> Objects.equals(o.getCatId(), e.getCatalogId())).findAny().ifPresent(o -> skuEsModel.setCatalogName(o.getName()));
-            skuEsModel.setAttrs(esAttrs);
-            return skuEsModel;
-        }).collect(Collectors.toList());
-
-        R r2 = searchFeignService.productSave(skuEsModels);
-        if (!Objects.equals(0, r2.getCode())) {
-            throw new BizException(BizExceptionEnum.P_REQ_REMOTESERVICE_FAIL,
-                    String.format("server-name：gulimall-search，url：/search/es/product/Up，param：%s", JSON.toJSONString(skuEsModels)), r2);
-        }
-
-        spuInfo.setPublishStatus(SpuStatusEnum.SPU_UP.getStatus());
-        spuInfo.setUpdateTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-        return this.updateById(spuInfo);
     }
 
     @Override

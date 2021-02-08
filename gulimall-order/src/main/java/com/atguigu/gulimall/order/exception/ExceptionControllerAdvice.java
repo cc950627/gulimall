@@ -1,14 +1,10 @@
-package com.atguigu.gulimall.ware.exception;
+package com.atguigu.gulimall.order.exception;
 
 import com.alibaba.fastjson.JSON;
 import com.atguigu.common.exception.BizException;
 import com.atguigu.common.exception.BizExceptionEnum;
 import com.atguigu.common.utils.R;
-import io.seata.core.context.RootContext;
-import io.seata.core.exception.TransactionException;
-import io.seata.tm.api.GlobalTransactionContext;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,7 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
-@RestControllerAdvice(basePackages = {"com.atguigu.gulimall.ware.controller"})
+@RestControllerAdvice(basePackages = {"com.atguigu.gulimall.order.controller", "com.atguigu.gulimall.order.web"})
 public class ExceptionControllerAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

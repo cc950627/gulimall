@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.order;
 
+import com.alibaba.cloud.seata.feign.SeataFeignClientAutoConfiguration;
 import io.seata.config.springcloud.EnableSeataSpringConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.redisson.spring.session.config.EnableRedissonHttpSession;
@@ -15,7 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableRabbit
 @EnableDiscoveryClient
 @MapperScan("com.atguigu.gulimall.order.dao")
-@SpringBootApplication
+@SpringBootApplication(exclude = {SeataFeignClientAutoConfiguration.class})
 public class GulimallOrderApplication {
 
     public static void main(String[] args) {

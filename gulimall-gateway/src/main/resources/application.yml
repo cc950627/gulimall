@@ -1,22 +1,31 @@
-#spring:
-#  cloud:
-#    nacos:
-#      discovery:
-#        server-addr: 192.168.56.10:8848
-#    sentinel:
-#      transport:
-#        dashboard: 192.168.56.10:8858
-#        port: 8719
-#  application:
-#    name: gulimall-gateway
+#server:
+#  port: 88
+#
 #management:
 #  endpoints:
 #    web:
 #      exposure:
 #        include: info,health,beans,env,mappings
-#server:
-#  port: 88
+#
+#spring:
+#  application:
+#    name: gulimall-gateway
+#
 #  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.56.10:8848
+#        username: nacos
+#        password: nacos
+#        namespace: 12a22b95-014c-4d8f-a19a-2a4cc74d80b3
+#        group: gulimall
+#        service: ${spring.application.name}
+#
+#    sentinel:
+#      transport:
+#        dashboard: 192.168.56.10:8858
+#        port: 8719
+#
 #    gateway:
 #      routes:
 #        - id: gulimall-coupon-route
@@ -54,7 +63,7 @@
 #          predicates:
 #            - Path=/ware/**
 #
-#        - id: gulimall-producrt-web-route
+#        - id: gulimall-product-web-route
 #          uri: lb://gulimall-product
 #          predicates:
 #            - Path=/**
@@ -66,7 +75,7 @@
 #            - Path=/**
 #            - Host=search.gulimall.com
 #
-#         - id: gulimall-auth-route
+#        - id: gulimall-auth-route
 #          uri: lb://gulimall-auth-server
 #          predicates:
 #            - Path=/**
@@ -102,4 +111,3 @@
 #            - Path=/**
 #          filters:
 #            - RewritePath=/(?<segment>/?.*), /renren-fast/$\{segment}
-#

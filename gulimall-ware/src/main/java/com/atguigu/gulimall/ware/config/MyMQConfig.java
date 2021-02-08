@@ -20,7 +20,7 @@ public class MyMQConfig {
 
     @Bean
     public Binding stockLockedBinding() {
-        return new Binding("order.delay.queue", Binding.DestinationType.QUEUE,
+        return new Binding("stock.delay.queue", Binding.DestinationType.QUEUE,
                 "order-event-exchange", "stock.locked", Maps.newHashMap());
     }
 
@@ -36,7 +36,7 @@ public class MyMQConfig {
         arguments.put("x-dead-letter-exchange", "stock-event-exchange");
         arguments.put("x-dead-letter-routing-key", "stock.release");
         arguments.put("x-message-ttl", 120000);
-        return new Queue("order.delay.queue", true, false, false, arguments);
+        return new Queue("stock.delay.queue", true, false, false, arguments);
     }
 
     @Bean

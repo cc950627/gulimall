@@ -1,15 +1,53 @@
+#server:
+#  port: 9000
+#
+#logging:
+#  level:
+#    com.atguigu.gulimall: debug
+#    com.alibaba.nacos.client.config.impl: warn
+#
+#redisson:
+#  single-server-config:
+#    address: 192.168.56.10:6379
+#
+#mybatis-plus:
+#  mapper-locations: classpath*:/mapper/**/*.xml
+#  global-config:
+#    db-config:
+#      id-type: auto
+#
+#gulimall:
+#  thread:
+#    pool:
+#      core-pool-size: 10
+#      maximum-pool-size: 100
+#      keep-alive-time: 10
+#      capacity: 10000
+#
+#
 #spring:
+#  application:
+#    name: gulimall-order
+#
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.56.10:8848
+#        username: nacos
+#        password: nacos
+#        namespace: 12a22b95-014c-4d8f-a19a-2a4cc74d80b3
+#        group: gulimall
+#        service: ${spring.application.name}
+#
 #  datasource:
 #    username: root
 #    password: 123456
 #    url: jdbc:mysql://192.168.56.10:3306/gulimall_oms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-#  cloud:
-#    nacos:
-#      discovery:
-#        server-addr: 192.168.56.10:8848
-#  application:
-#    name: gulimall-order
+#
 #  rabbitmq:
 #    host: 192.168.56.10
 #    port: 5672
@@ -21,30 +59,41 @@
 #    listener:
 #      direct:
 #        acknowledge-mode: manual
-#  jackson:
-#    date-format: yyyy-MM-dd HH:mm:ss
 #
-#mybatis-plus:
-#  mapper-locations: classpath*:/mapper/**/*.xml
-#  global-config:
-#    db-config:
-#      id-type: auto
+#  zipkin:
+#    base-url: http://192.168.56.10:9411/
+#    discovery-client-enabled: false
+#    sender:
+#      type: web
+#  sleuth:
+#    sampler:
+#      probability: 1
 #
-#server:
-#  port: 9000
+#  thymeleaf:
+#    cache: false
+#    prefix: classpath:/templates/
+#    suffix: .html
 #
 #seata:
 #  enabled: true
-#  application-id: gulimall-order
+#  application-id: ${spring.application.name}
+#  tx-service-group: ${spring.application.name}-group
+#  enable-auto-data-source-proxy: true
 #  registry:
 #    type: nacos
 #    nacos:
-#      server-addr: 192.168.56.10:8848
+#      application: seata-server
+#      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+#      username: ${spring.cloud.nacos.discovery.username}
+#      password: ${spring.cloud.nacos.discovery.password}
+#      namespace: ${spring.cloud.nacos.discovery.namespace}
+#      group: SEATA_GROUP
+#      cluster: default
 #  config:
-#    type: file
-#    file:
-#      name: file.conf
-#  client:
-#    support:
-#      spring:
-#        datasource-autoproxy: true
+#    type: nacos
+#    nacos:
+#      server-addr: ${seata.registry.nacos.server-addr}
+#      username: ${seata.registry.nacos.username}
+#      password: ${seata.registry.nacos.password}
+#      namespace: ${seata.registry.nacos.namespace}
+#      group: ${seata.registry.nacos.group}

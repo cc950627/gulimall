@@ -32,13 +32,13 @@ public class MyMQConfig {
 
     @Bean
     public Binding stockReleaseBinding() {
-        return new Binding("stock.release.queue", Binding.DestinationType.QUEUE,
+        return new Binding("order.release.queue", Binding.DestinationType.QUEUE,
                 "order-event-exchange", "stock.release.#", Maps.newHashMap());
     }
 
     @Bean
     public Binding orderSeckillBinding() {
-        return new Binding("stock.seckill.queue", Binding.DestinationType.QUEUE,
+        return new Binding("order.seckill.queue", Binding.DestinationType.QUEUE,
                 "order-event-exchange", "stock.seckill.#", Maps.newHashMap());
     }
 
@@ -46,7 +46,7 @@ public class MyMQConfig {
     public Queue orderDelayQueue() {
         Map<String, Object> arguments = Maps.newHashMap();
         arguments.put("x-dead-letter-exchange", "order-event-exchange");
-        arguments.put("x-dead-letter-routing-key", "order,release");
+        arguments.put("x-dead-letter-routing-key", "order.release");
         arguments.put("x-message-ttl", 60000);
         return new Queue("order.delay.queue", true, false, false, arguments);
     }
