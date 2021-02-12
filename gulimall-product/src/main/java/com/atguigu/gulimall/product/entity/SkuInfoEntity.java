@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.product.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.atguigu.common.to.MemberPriceTO;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -19,9 +20,7 @@ import java.util.List;
  */
 @Data
 @TableName("pms_sku_info")
-public class SkuInfoEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class SkuInfoEntity extends BaseEntity {
 	/**
 	 * skuId
 	 */

@@ -42,6 +42,7 @@ public class LoginUserInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
+        loginUser.remove();
     }
 
 }

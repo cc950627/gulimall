@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.product.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.atguigu.common.valid.ListValue;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -21,9 +22,7 @@ import static com.atguigu.common.valid.ValidatedGroup.Update;
  */
 @Data
 @TableName("pms_brand")
-public class BrandEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class BrandEntity extends BaseEntity {
 	/**
 	 * 品牌id
 	 */

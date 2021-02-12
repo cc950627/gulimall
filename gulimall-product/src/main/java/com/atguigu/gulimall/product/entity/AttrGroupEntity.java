@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.product.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -17,9 +18,7 @@ import java.util.List;
  */
 @Data
 @TableName("pms_attr_group")
-public class AttrGroupEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class AttrGroupEntity extends BaseEntity {
     /**
      * 分组id
      */

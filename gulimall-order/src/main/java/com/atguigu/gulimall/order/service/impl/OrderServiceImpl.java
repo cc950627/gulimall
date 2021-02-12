@@ -218,8 +218,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         orderEntity.setStatus(OrderStatusEnum.CREATE_NEW.getCode());
         BigDecimal amount = order.getSeckillPrice().multiply(BigDecimal.valueOf(order.getNum()));
         orderEntity.setPayAmount(amount);
-        orderEntity.setCreateTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-        orderEntity.setModifyTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+        orderEntity.setCreateTime(LocalDateTime.now());
+        orderEntity.setModifyTime(LocalDateTime.now());
         this.save(orderEntity);
 
         OrderItemEntity orderItemEntity = new OrderItemEntity();
@@ -246,7 +246,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
     private void saveOrder(OrderCreateTO createTO) {
         OrderEntity order = createTO.getOrder();
-        order.setCreateTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+        order.setCreateTime(LocalDateTime.now());
         order.setModifyTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
         this.save(order);
         orderItemService.saveBatch(createTO.getOrderItem());

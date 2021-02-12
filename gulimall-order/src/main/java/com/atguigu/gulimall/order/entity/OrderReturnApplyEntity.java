@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.order.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -10,16 +11,14 @@ import lombok.Data;
 
 /**
  * 订单退货申请
- * 
+ *
  * @author chengcheng
  * @email chengcheng634493683@qq.com
  * @date 2020-05-24 18:53:59
  */
 @Data
 @TableName("oms_order_return_apply")
-public class OrderReturnApplyEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class OrderReturnApplyEntity extends BaseEntity {
 	/**
 	 * id
 	 */
@@ -37,10 +36,6 @@ public class OrderReturnApplyEntity implements Serializable {
 	 * 订单编号
 	 */
 	private String orderSn;
-	/**
-	 * 申请时间
-	 */
-	private Date createTime;
 	/**
 	 * 会员用户名
 	 */

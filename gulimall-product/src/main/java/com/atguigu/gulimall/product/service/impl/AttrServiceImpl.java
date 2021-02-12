@@ -4,7 +4,7 @@ import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.Query;
 import com.atguigu.common.exception.BizException;
 import com.atguigu.common.exception.BizExceptionEnum;
-import com.atguigu.gulimall.product.constant.AttrTypeEnum;
+import com.atguigu.gulimall.product.enums.AttrTypeEnum;
 import com.atguigu.gulimall.product.dao.AttrDao;
 import com.atguigu.gulimall.product.entity.*;
 import com.atguigu.gulimall.product.service.*;

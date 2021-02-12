@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.order.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -9,16 +10,14 @@ import lombok.Data;
 
 /**
  * 订单配置信息
- * 
+ *
  * @author chengcheng
  * @email chengcheng634493683@qq.com
  * @date 2020-05-24 18:53:59
  */
 @Data
 @TableName("oms_order_setting")
-public class OrderSettingEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class OrderSettingEntity extends BaseEntity {
 	/**
 	 * id
 	 */

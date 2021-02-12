@@ -1,9 +1,9 @@
 package com.atguigu.gulimall.product.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.atguigu.common.to.SpuBoundTO;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.atguigu.gulimall.product.enums.SpuStatusEnum;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,9 +20,7 @@ import java.util.List;
  */
 @Data
 @TableName("pms_spu_info")
-public class SpuInfoEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class SpuInfoEntity extends BaseEntity {
 	/**
 	 * 商品id
 	 */
@@ -51,15 +49,7 @@ public class SpuInfoEntity implements Serializable {
 	/**
 	 * 上架状态[0 - 下架，1 - 上架]
 	 */
-	private Integer publishStatus;
-	/**
-	 *
-	 */
-	private Date createTime;
-	/**
-	 *
-	 */
-	private Date updateTime;
+	private SpuStatusEnum publishStatus;
 
 	@TableField(exist = false)
 	private List<String> decript;

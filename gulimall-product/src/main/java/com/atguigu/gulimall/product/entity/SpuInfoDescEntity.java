@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.product.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -17,9 +18,7 @@ import lombok.Data;
  */
 @Data
 @TableName("pms_spu_info_desc")
-public class SpuInfoDescEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class SpuInfoDescEntity extends BaseEntity {
 	/**
 	 * 商品id
 	 */

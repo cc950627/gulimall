@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.order.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.atguigu.gulimall.order.vo.OrderItemVO;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -20,9 +21,7 @@ import java.util.List;
  */
 @Data
 @TableName("oms_order")
-public class OrderEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class OrderEntity extends BaseEntity {
 	/**
 	 * id
 	 */
@@ -40,10 +39,6 @@ public class OrderEntity implements Serializable {
 	 * 使用的优惠券
 	 */
 	private Long couponId;
-	/**
-	 * create_time
-	 */
-	private Date createTime;
 	/**
 	 * 用户名
 	 */

@@ -12,15 +12,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
 
 @EnableSeataSpringConfig
 @EnableRedissonHttpSession
-@EnableFeignClients(basePackages = "com.atguigu.gulimall.product.feign")
+@EnableTransactionManagement
+@EnableFeignClients
 @EnableDiscoveryClient
-@MapperScan("com.atguigu.gulimall.product.dao")
-@SpringBootApplication(exclude = {SeataFeignClientAutoConfiguration.class})
+@SpringBootApplication(scanBasePackages = "com.atguigu.gulimall.product", exclude = {SeataFeignClientAutoConfiguration.class})
 public class GulimallProductApplication {
 
     public static void main(String[] args) {

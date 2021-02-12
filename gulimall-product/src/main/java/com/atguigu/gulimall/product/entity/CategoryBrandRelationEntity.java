@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.product.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -15,9 +16,7 @@ import java.io.Serializable;
  */
 @Data
 @TableName("pms_category_brand_relation")
-public class CategoryBrandRelationEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class CategoryBrandRelationEntity extends BaseEntity {
 	/**
 	 *
 	 */

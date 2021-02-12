@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.order.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -10,16 +11,14 @@ import lombok.Data;
 
 /**
  * 支付信息表
- * 
+ *
  * @author chengcheng
  * @email chengcheng634493683@qq.com
  * @date 2020-05-24 18:53:59
  */
 @Data
 @TableName("oms_payment_info")
-public class PaymentInfoEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class PaymentInfoEntity extends BaseEntity {
 	/**
 	 * id
 	 */
@@ -49,10 +48,6 @@ public class PaymentInfoEntity implements Serializable {
 	 * 支付状态
 	 */
 	private String paymentStatus;
-	/**
-	 * 创建时间
-	 */
-	private Date createTime;
 	/**
 	 * 确认时间
 	 */

@@ -9,7 +9,7 @@ import com.atguigu.common.utils.Query;
 import com.atguigu.common.utils.R;
 import com.atguigu.common.exception.BizException;
 import com.atguigu.common.exception.BizExceptionEnum;
-import com.atguigu.gulimall.product.constant.SpuStatusEnum;
+import com.atguigu.gulimall.product.enums.SpuStatusEnum;
 import com.atguigu.gulimall.product.dao.SpuInfoDao;
 import com.atguigu.gulimall.product.entity.*;
 import com.atguigu.gulimall.product.feign.CouponFeignService;
@@ -139,8 +139,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     String.format("server-name：gulimall-search，url：/search/es/product/Up，param：%s", JSON.toJSONString(skuEsModels)), r2);
         }
 
-        spuInfo.setPublishStatus(SpuStatusEnum.SPU_UP.getStatus());
-        spuInfo.setUpdateTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+        spuInfo.setPublishStatus(SpuStatusEnum.SPU_UP);
         return this.updateById(spuInfo);
     }
 
@@ -158,8 +157,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean saveSpuInfo(SpuInfoEntity spuInfo) {
-         spuInfo.setCreateTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-        spuInfo.setUpdateTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
         this.save(spuInfo);
 
         SpuInfoDescEntity spuInfoDescEntity = new SpuInfoDescEntity();

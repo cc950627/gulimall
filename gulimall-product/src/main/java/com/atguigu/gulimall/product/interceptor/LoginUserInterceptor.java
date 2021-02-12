@@ -1,8 +1,9 @@
-package com.atguigu.gulimall.order.interceptor;
+package com.atguigu.gulimall.product.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.atguigu.common.to.UserInfoTO;
 import com.atguigu.common.utils.Constant;
+import com.google.common.collect.Lists;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -11,10 +12,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Objects;
 
 @Component
 public class LoginUserInterceptor implements HandlerInterceptor {
+
+    // 需要放行的api
+    private static final List<String> UIRS = Lists.newArrayList(
+            "/index/**",
+            "/product/spuinfo/test/**");
 
     public static ThreadLocal<UserInfoTO> loginUser = new ThreadLocal<>();
 
@@ -22,9 +29,7 @@ public class LoginUserInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
         AntPathMatcher antPathMatcher = new AntPathMatcher();
-        boolean match = antPathMatcher.match("/order/order/getOrder/**", uri);
-        boolean match1 = antPathMatcher.match("/order/payed/**", uri);
-        if (match || match1) {
+        if (UIRS.stream().anyMatch(e -> antPathMatcher.match(e, uri))) {
             return true;
         }
 

@@ -1,4 +1,8 @@
-package com.atguigu.gulimall.product.constant;
+package com.atguigu.gulimall.product.enums;
+
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Objects;
 
@@ -14,9 +18,11 @@ public enum AttrTypeEnum {
      */
     ATTR_TYPE_BASE(1, "base");
 
-    private Integer value;
+    @EnumValue
+    private final Integer value;
 
-    private String type;
+    @JsonValue
+    private final String type;
 
     AttrTypeEnum(Integer value, String type) {
         this.type = type;

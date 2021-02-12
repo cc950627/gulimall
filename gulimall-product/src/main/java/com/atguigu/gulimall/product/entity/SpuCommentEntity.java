@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.product.entity;
 
+import com.atguigu.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -16,9 +17,7 @@ import lombok.Data;
  */
 @Data
 @TableName("pms_spu_comment")
-public class SpuCommentEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class SpuCommentEntity extends BaseEntity {
 	/**
 	 * id
 	 */
@@ -48,10 +47,6 @@ public class SpuCommentEntity implements Serializable {
 	 * 会员ip
 	 */
 	private String memberIp;
-	/**
-	 * 创建时间
-	 */
-	private Date createTime;
 	/**
 	 * 显示状态[0-不显示，1-显示]
 	 */

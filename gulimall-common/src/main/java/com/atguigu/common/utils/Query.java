@@ -15,6 +15,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * 查询参数
@@ -29,15 +31,8 @@ public class Query<T> {
 
     public IPage<T> getPage(Map<String, Object> params, String defaultOrderField, boolean isAsc) {
         //分页参数
-        long curPage = 1;
-        long limit = 10;
-
-        if(params.get(Constant.PAGE) != null){
-            curPage = Long.parseLong((String)params.get(Constant.PAGE));
-        }
-        if(params.get(Constant.LIMIT) != null){
-            limit = Long.parseLong((String)params.get(Constant.LIMIT));
-        }
+        long curPage = Long.parseLong(Objects.toString(params.getOrDefault(Constant.PAGE, 1)));
+        long limit = Long.parseLong(Objects.toString(params.getOrDefault(Constant.LIMIT, 10)));
 
         //分页对象
         Page<T> page = new Page<>(curPage, limit);
