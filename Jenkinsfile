@@ -18,7 +18,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_voucher}", url: "${git_url}"]]])
             }
         }
-        stage(' 代码审查 ') {
+        /** stage(' 代码审查 ') {
             steps {
                 script {
                     for (projectName in projectNames) {
@@ -30,7 +30,7 @@ pipeline {
                     }
                 }
             }
-        }
+        } */
         stage(' 代码安装 ') {
             steps {
                sh "mvn clean install"
