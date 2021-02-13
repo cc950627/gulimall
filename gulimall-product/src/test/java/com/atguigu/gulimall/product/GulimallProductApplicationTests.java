@@ -1,13 +1,21 @@
 package com.atguigu.gulimall.product;
 
 import com.alibaba.nacos.common.utils.UuidUtils;
+import com.atguigu.gulimall.product.entity.SkuInfoEntity;
+import com.atguigu.gulimall.product.entity.SpuInfoEntity;
+import com.google.common.collect.Lists;
 import com.zengtengpeng.operation.RedissonObject;
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RBucket;
 import org.redisson.api.RKeys;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 class GulimallProductApplicationTests {

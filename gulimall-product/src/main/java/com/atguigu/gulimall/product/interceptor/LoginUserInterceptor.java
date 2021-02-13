@@ -20,6 +20,7 @@ public class LoginUserInterceptor implements HandlerInterceptor {
 
     // 需要放行的api
     private static final List<String> UIRS = Lists.newArrayList(
+            "/**",
             "/index/**",
             "/product/spuinfo/test/**");
 

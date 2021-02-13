@@ -3,6 +3,7 @@ package com.atguigu.gulimall.product.config;
 import com.atguigu.common.to.UserInfoTO;
 import com.atguigu.gulimall.product.interceptor.LoginUserInterceptor;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.wrapper.ObjectWrapper;
 import org.slf4j.Logger;
@@ -19,10 +20,9 @@ import java.util.Optional;
  * @version 1.0
  * @date 2020/04/14
  */
+@Slf4j
 @Component
 public class MetaHandler implements MetaObjectHandler {
-    private static final Logger logger = LoggerFactory.getLogger(MetaHandler.class);
-
     /**
      * 新增数据执行
      *

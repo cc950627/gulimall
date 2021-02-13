@@ -4,7 +4,7 @@
 #logging:
 #  level:
 #    com.atguigu.gulimall: debug
-#    com.alibaba.nacos.client.config.impl: warn
+#    com.alibaba.nacos: warn
 #
 #redisson:
 #  single-server-config:

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.atguigu.common.utils.R;
 import com.atguigu.common.exception.BizException;
 import com.atguigu.common.exception.BizExceptionEnum;
+import com.pig4cloud.plugin.idempotent.exception.IdempotentException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,6 +31,11 @@ public class ExceptionControllerAdvice {
         return R.error(e.getCode(), e.getMdssage()).put("data", e.getDetail()).put("resaon", e.getResaon());
     }
 
+    @ExceptionHandler(value = IdempotentException.class)
+    public R handleIdempotentException(IdempotentException e) {
+        log.error(e.getMessage());
+        return R.error(e.getMessage());
+    }
     @ExceptionHandler(value = Exception.class)
     public R handleException(Exception e) {
         log.error(e.getMessage());
