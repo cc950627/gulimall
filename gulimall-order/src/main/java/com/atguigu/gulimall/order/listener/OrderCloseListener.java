@@ -39,7 +39,6 @@ public class OrderCloseListener {
             return;
         }
         orderEntity.setStatus(OrderStatusEnum.CANCLED.getCode());
-        orderEntity.setModifyTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
         orderService.updateById(orderEntity);
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
 
