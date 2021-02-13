@@ -245,10 +245,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     }
 
     private void saveOrder(OrderCreateTO createTO) {
-        OrderEntity order = createTO.getOrder();
-        order.setCreateTime(LocalDateTime.now());
-        order.setModifyTime(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-        this.save(order);
+        this.save(createTO.getOrder());
         orderItemService.saveBatch(createTO.getOrderItem());
     }
 
