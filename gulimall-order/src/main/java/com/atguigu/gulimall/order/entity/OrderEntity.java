@@ -183,10 +183,6 @@ public class OrderEntity extends BaseEntity {
 	 * 评价时间
 	 */
 	private Date commentTime;
-	/**
-	 * 修改时间
-	 */
-	private Date modifyTime;
 
 	@TableField(exist = false)
 	private List<OrderItemEntity>  orderItems;
