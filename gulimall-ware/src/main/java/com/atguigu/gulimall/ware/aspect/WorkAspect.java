@@ -1,4 +1,4 @@
-package com.atguigu.gulimall.ware.config;
+package com.atguigu.gulimall.ware.aspect;
 
 import io.seata.core.context.RootContext;
 import io.seata.core.exception.TransactionException;
