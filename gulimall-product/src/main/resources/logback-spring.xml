@@ -32,12 +32,22 @@
 			<MaxFileSize>100MB</MaxFileSize>
 		</triggeringPolicy>
 	</appender>
+	<!--ELK日志收集-->
+	<appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+		<destination>192.168.56.10:5044</destination>
+		<!-- encoder必须配置,有多种可选 -->
+		<encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+			<customFields>{"APP_NAME":"${APP_NAME}"}</customFields>
+		</encoder>
+	</appender>
 
 	<root level="INFO">
 		<!--将日志打印到文件-->
 		<!--<appender-ref ref="FILE"/>-->
 		<!--将日志打印到控制台-->
 		<appender-ref ref="CONSOLE"/>
+		<!--将日志输出到logstash-->
+		<appender-ref ref="LOGSTASH"/>
 	</root>
 	<!-- 子节点向上级传递 局部日志级别-->
 	<logger level="DEBUG" name="com.atguigu.gulimall"/>
