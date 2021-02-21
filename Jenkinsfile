@@ -40,12 +40,12 @@ pipeline {
             steps {
                 script {
                     for (projectName in projectNames) {
-                        sh "mvn -f ${projectName} clean package"
+                        sh "mvn -f ${projectName} clean package dockerfile:build"
                     }
                 }
             }
         }
-        stage(' 代码部署 ') {
+        /** stage(' 代码部署 ') {
             steps {
                 script {
                      for (projectName in projectNames) {
@@ -56,6 +56,6 @@ pipeline {
                      }
                 }
             }
-        }
+        } */
     }
 }

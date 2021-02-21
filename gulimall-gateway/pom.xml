@@ -68,6 +68,11 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
+            <!--构建docker镜像-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 </project>
