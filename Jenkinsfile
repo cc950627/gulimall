@@ -40,22 +40,21 @@ pipeline {
             steps {
                 script {
                     for (projectName in projectNames) {
-                        sh "mvn -f ${projectName} clean package dockerfile:build"
+                        sh "mvn -f ${projectName} clean package"
                     }
                 }
             }
         }
-        /** stage(' 代码部署 ') {
+        stage(' 代码部署 ') {
             steps {
                 script {
                      for (projectName in projectNames) {
                         for (host in hosts) {
-                            sshPublisher(publishers: [sshPublisherDesc(configName: "${host}", transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: """cd /mydata/jenkins/web/${projectName}
-                            ./start.sh""", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "/mydata/jenkins/web/${projectName}", remoteDirectorySDF: false, removePrefix: "${projectName}/target/", sourceFiles: "${projectName}/target/*.jar")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                            sshPublisher(publishers: [sshPublisherDesc(configName: "${host}", transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: """cd /mydata/jenkins/web/${projectName} && ./start.sh""", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "/mydata/jenkins/web/${projectName}", remoteDirectorySDF: false, removePrefix: "${projectName}/target/", sourceFiles: "${projectName}/target/*.jar")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                         }
                      }
                 }
             }
-        } */
+        }
     }
 }
