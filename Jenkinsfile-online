@@ -29,7 +29,8 @@ pipeline {
     stage('编译打包') {
       steps {
         container ('maven') {
-          sh "mvn -f gulimall-common -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml clean install"
+          sh "mvn -f gulimall-common -Dmaven.test.skip=true -gs `pwd`/mvn-settings.xml clean"
+          sh "mvn -f gulimall-common -Dmaven.test.skip=true install"
         }
       }
     }
