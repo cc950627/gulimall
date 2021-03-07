@@ -9,7 +9,6 @@ pipeline {
     choice(name: 'modulename',choices: ['Module1', 'Module2', 'Module3'],description: 'Which Module do you prefer to choose?')
     string(name:'PROJECT_NAME',defaultValue: '',description:'项目')
     string(name:'PROJECT_VERSION',defaultValue: '',description:'版本')
-    string(name:'BRANCH_NAME',defaultValue: '',description:'分支')
   }
 
   environment {
