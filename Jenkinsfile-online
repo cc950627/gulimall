@@ -35,5 +35,45 @@ pipeline {
         }
       }
     }
+    stage('构建镜像') {
+      steps {
+        container ('maven') {
+          sh "docker build -f $PROJECT_NAME/Dockerfile -t $REGISTRY/$ALIYUN_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER ."
+        }
+      }
+    }
+    stage('推送镜像') {
+      steps {
+        container ('maven') {
+          withCredentials([usernamePassword(passwordVariable : 'ALIYUN_PASSWORD' ,usernameVariable : 'ALIYUN_USERNAME' ,credentialsId : "$ALIYUN_CREDENTIAL_ID")]) {
+              sh "echo $ALIYUN_PASSWORD | docker login --username=$ALIYUN_USERNAME $REGISTRY --password-stdin"
+              sh "docker tag  $REGISTRY/$ALIYUN_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$ALIYUN_NAMESPACE/$PROJECT_NAME:$BRANCH_NAME-latest"
+              sh "docker push $REGISTRY/$ALIYUN_NAMESPACE/$PROJECT_NAME:$BRANCH_NAME-$PROJECT_VERSION"
+          }
+        }
+      }
+    }
+    stage('部署') {
+      steps {
+        kubernetesDeploy(configs: "$PROJECT_NAME/deploy/**", enableConfigSubstitution: true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
+      }
+    }
+    stage('发布版本'){
+      when{
+        expression{
+          return params.PROJECT_VERSION != latest
+        }
+      }
+      steps {
+        container ('maven') {
+          withCredentials([usernamePassword(credentialsId: "$GITEE_CREDENTIAL_ID", passwordVariable: 'GITEE_PASSWORD', usernameVariable: 'GITEE_USERNAME')]) {
+            sh "git tag -a $PROJECT_VERSION -m $PROJECT_VERSION"
+            sh "git push http://$GITEE_USERNAME:$GITEE_PASSWORD@gitee.com/$GITHUB_ACCOUNT/gulimall.git --tags --ipv4"
+          }
+          sh "docker tag  $REGISTRY/$ALIYUN_NAMESPACE/$PROJECT_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$ALIYUN_NAMESPACE/$PROJECT_NAME:$BRANCH_NAME-$PROJECT_VERSION"
+          sh "docker push $REGISTRY/$ALIYUN_NAMESPACE/$PROJECT_NAME:$BRANCH_NAME-$PROJECT_VERSION"
+        }
+      }
+    }
   }
 }
