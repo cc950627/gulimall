@@ -7,7 +7,7 @@ pipeline {
 
   parameters {
     choice(name: 'PROJECT_NAME',choices: ['gulimall-gateway', 'gulimall-product', 'gulimall-cat'],description: '请选择要部署的项目名')
-    string(name:'PROJECT_VERSION',defaultValue: 'latest',description:'请输入要发布的版本，例：v1.0.0')
+    string(name:'PROJECT_VERSION',defaultValue: 'latest',description:'请输入要发布的版本，例：v1.0.0.0')
   }
 
   environment {
