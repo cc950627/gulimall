@@ -29,7 +29,7 @@ pipeline {
     stage('编译打包') {
       steps {
         container ('maven') {
-          echo "modulename-----------------------$modulename"
+          echo "PROJECT_NAME-----------------------$PROJECT_NAME"
           echo "BRANCH_NAME----------------------$BRANCH_NAME"
         }
       }
