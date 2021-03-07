@@ -1,7 +1,7 @@
 // git仓库凭证
-def git_voucher = "34ba31b6-2cb7-4ad4-b222-fefb39b5eaec"
+def git_voucher = "7caeb016-3511-4f42-85a0-8db30bcc96e8"
 // git仓库地址
-def git_url = "git@github.com:cc950627/gulimall.git"
+def git_url = "https://gitee.com/cc950627/gulimall.git"
 // 获取当前选择的项目信息
 def projectNames = "${project_names}".split(",");
 // 服务发布的分支
